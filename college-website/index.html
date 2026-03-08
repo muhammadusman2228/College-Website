@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Greenfield College – Excellence in Education</title>
+    <meta name="description"
+        content="Greenfield College offers world-class education in Computer Science, Engineering, Business, and Sciences. Apply now for Fall 2025 admissions." />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/forms.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+    <!-- ─── TOAST CONTAINER ──────────────────────────── -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- ─── NAVBAR ───────────────────────────────────── -->
+    <nav class="navbar" id="main-navbar" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">GC</div>
+                <div class="logo-text">
+                    <span class="logo-name">Greenfield College</span>
+                    <span class="logo-tagline">Excellence in Education</span>
+                </div>
+            </a>
+
+            <ul class="nav-links" id="mobile-menu" role="menubar">
+                <li><a href="#about" class="nav-link" role="menuitem">About</a></li>
+                <li><a href="#programs" class="nav-link" role="menuitem">Programs</a></li>
+                <li><a href="#news" class="nav-link" role="menuitem">News</a></li>
+                <li><a href="#admissions" class="nav-link" role="menuitem">Admissions</a></li>
+                <li><a href="#gallery" class="nav-link" role="menuitem">Gallery</a></li>
+                <li><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="pages/student-login.html" class="btn btn-secondary btn-sm">
+                    <i class="fa-solid fa-user"></i> Student Portal
+                </a>
+                <a href="pages/admin-login.html" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-lock"></i> Admin
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ─── HERO ──────────────────────────────────────── -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="particles" aria-hidden="true">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Admissions Open for Fall 2025
+                </div>
+
+                <h1 class="hero-title">
+                    Shape Your Future at<br>
+                    <span class="gradient-text">Greenfield</span>
+                    <span class="gold-text"> College</span>
+                </h1>
+
+                <p class="hero-description">
+                    A premier institution of higher learning dedicated to academicexcellence, innovation, and character
+                    development. Join thousands of students building tomorrow's future today.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#admissions" class="btn btn-primary btn-lg">
+                        <i class="fa-solid fa-graduation-cap"></i> Apply Now
+                    </a>
+                    <a href="pages/student-login.html" class="btn btn-secondary btn-lg">
+                        <i class="fa-solid fa-user-circle"></i> Student Portal
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number" data-counter="5000" data-suffix="+">0</div>
+                        <div class="hero-stat-label">Students Enrolled</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number" data-counter="120" data-suffix="+">0</div>
+                        <div class="hero-stat-label">Expert Faculty</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number" data-counter="25" data-suffix="+">0</div>
+                        <div class="hero-stat-label">Programs Offered</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number" data-counter="98" data-suffix="%">0</div>
+                        <div class="hero-stat-label">Placement Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── STATS BAR ─────────────────────────────────── -->
+    <section class="stats-section" aria-label="College statistics">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" data-counter="25">0</span>
+                    <span class="stat-label">Years of Excellence</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-counter="15000" data-suffix="+">0</span>
+                    <span class="stat-label">Alumni Worldwide</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-counter="6">0</span>
+                    <span class="stat-label">Faculties</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-counter="50" data-suffix="+">0</span>
+                    <span class="stat-label">Research Labs</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── ABOUT ─────────────────────────────────────── -->
+    <section class="section about-section" id="about" aria-label="About Greenfield College">
+        <div class="container">
+            <div class="about-grid">
+                <div class="reveal-left about-img-wrapper">
+                    <div class="about-img-main">
+                        <i class="fa-solid fa-university"></i>
+                        <span style="font-size:0.85rem;color:var(--text-muted)">College Main Building</span>
+                        <span style="font-size:0.75rem;color:var(--text-muted)">(Add your college photo here)</span>
+                    </div>
+                    <div class="about-badge-card anim-float">
+                        <div class="number" data-counter="25">0</div>
+                        <div class="label">Years of Excellence</div>
+                    </div>
+                </div>
+
+                <div class="about-text reveal-right">
+                    <div class="section-label">About Us</div>
+                    <h2 class="section-title">A Legacy of <span>Academic Excellence</span></h2>
+
+                    <p>Greenfield College has been a beacon of quality education since its founding in 2000. Located in
+                        the heart of the city, our institution provides a vibrant and intellectually stimulating
+                        environment for students to thrive and discover their potential.</p>
+
+                    <p>With state-of-the-art laboratories, a rich library, and a dedicated faculty of over 120 expert
+                        educators, we offer an unparalleled educational experience across multiple disciplines.</p>
+
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="about-feature-icon"><i class="fa-solid fa-flask"></i></div>
+                            <div class="about-feature-text">
+                                <strong>Modern Labs</strong>
+                                <span>50+ research & computer labs</span>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon"><i class="fa-solid fa-books"></i></div>
+                            <div class="about-feature-text">
+                                <strong>Rich Library</strong>
+                                <span>100,000+ books & digital resources</span>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon"><i class="fa-solid fa-trophy"></i></div>
+                            <div class="about-feature-text">
+                                <strong>Sports Complex</strong>
+                                <span>Olympic-standard facilities</span>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon"><i class="fa-solid fa-wifi"></i></div>
+                            <div class="about-feature-text">
+                                <strong>Smart Campus</strong>
+                                <span>100% Wi-Fi coverage</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#admissions" class="btn btn-primary">
+                        <i class="fa-solid fa-arrow-right"></i> Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── PROGRAMS ──────────────────────────────────── -->
+    <section class="section programs-section" id="programs" aria-label="Academic programs">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Academics</span>
+                <h2 class="section-title">Our <span>Programs</span></h2>
+                <p class="section-subtitle">Choose from our wide array of undergraduate programs designed to prepare you
+                    for global career success.</p>
+            </div>
+            <div class="programs-grid" id="programs-container">
+                <!-- Populated by main.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── NEWS & ANNOUNCEMENTS ──────────────────────── -->
+    <section class="section news-section" id="news" aria-label="News and announcements">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Latest Updates</span>
+                <h2 class="section-title">News & <span>Announcements</span></h2>
+                <p class="section-subtitle">Stay up-to-date with the latest happenings, events, and important notices
+                    from Greenfield College.</p>
+            </div>
+            <div class="news-grid" id="announcements-container">
+                <!-- Populated by main.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── ADMISSIONS ────────────────────────────────── -->
+    <section class="section admissions-section" id="admissions" aria-label="Admissions process">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Join Us</span>
+                <h2 class="section-title">Admissions <span>2025</span></h2>
+                <p class="section-subtitle">Apply in four simple steps and begin your journey toward an exceptional
+                    future.</p>
+            </div>
+
+            <div class="admissions-timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-icon"><i class="fa-solid fa-file-alt"></i></div>
+                    <div class="timeline-content">
+                        <div class="timeline-step">Step 01</div>
+                        <div class="timeline-title">Online Application</div>
+                        <div class="timeline-desc">Complete the online application form with your personal details,
+                            academic records, and program preference. Applications are accepted year-round.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal stagger-2">
+                    <div class="timeline-icon"><i class="fa-solid fa-file-certificate"></i></div>
+                    <div class="timeline-content">
+                        <div class="timeline-step">Step 02</div>
+                        <div class="timeline-title">Submit Documents</div>
+                        <div class="timeline-desc">Upload scanned copies of your CNIC, SSC and HSSC certificates,
+                            domicile, and two passport-size photographs through our secure portal.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal stagger-3">
+                    <div class="timeline-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <div class="timeline-content">
+                        <div class="timeline-step">Step 03</div>
+                        <div class="timeline-title">Assessment & Interview</div>
+                        <div class="timeline-desc">Shortlisted candidates will be called for an entry test and/or
+                            interview with the concerned faculty department. Results are announced within 7 days.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal stagger-4">
+                    <div class="timeline-icon"><i class="fa-solid fa-check-circle"></i></div>
+                    <div class="timeline-content">
+                        <div class="timeline-step">Step 04</div>
+                        <div class="timeline-title">Enroll & Begin</div>
+                        <div class="timeline-desc">Upon receiving your admission letter, complete fee deposit in the
+                            Student Portal, collect your student ID, and begin your academic journey!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-top:48px" class="reveal">
+                <a href="pages/student-login.html" class="btn btn-primary btn-lg">
+                    <i class="fa-solid fa-graduation-cap"></i> Apply Now
+                </a>
+                <a href="#contact" class="btn btn-secondary btn-lg" style="margin-left:16px">
+                    <i class="fa-solid fa-phone"></i> Contact Admissions
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── GALLERY ───────────────────────────────────── -->
+    <section class="section gallery-section" id="gallery" aria-label="College gallery">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Campus Life</span>
+                <h2 class="section-title">Our <span>Gallery</span></h2>
+                <p class="section-subtitle">Explore our vibrant campus, modern facilities, and student life through our
+                    photo gallery.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fa-solid fa-university"></i>
+                        <span>Main Campus</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Greenfield College – Main Campus</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fa-solid fa-flask"></i>
+                        <span>Science Labs</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Modern Science Laboratories</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <span>Computer Lab</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">State-of-the-art Computer Lab</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fa-solid fa-trophy"></i>
+                        <span>Sports Complex</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Olympic-standard Sports Complex</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fa-solid fa-books"></i>
+                        <span>Library</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Central Library – 100,000+ Books</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fa-solid fa-users"></i>
+                        <span>Student Activities</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Student Activities & Events</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── CONTACT ───────────────────────────────────── -->
+    <section class="section contact-section" id="contact" aria-label="Contact us">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Get in Touch</span>
+                <h2 class="section-title">Contact <span>Us</span></h2>
+                <p class="section-subtitle">Have questions about admissions, programs, or anything else? We're here to
+                    help.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info reveal-left">
+                    <h3 class="section-title" style="font-size:1.5rem">We'd Love to<br><span>Hear From You</span></h3>
+                    <p style="color:var(--text-muted);margin:16px 0 32px">Reach out to us through any of the following
+                        channels and our dedicated team will get back to you within 24 hours.</p>
+
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="contact-item-text">
+                                <strong>Campus Address</strong>
+                                <span>123 Education Avenue, University Town, Lahore, Pakistan</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                            <div class="contact-item-text">
+                                <strong>Phone</strong>
+                                <span>+92-42-3456-7890 | +92-300-1234567</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="contact-item-text">
+                                <strong>Email</strong>
+                                <span>info@greenfieldcollege.edu.pk</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div class="contact-item-text">
+                                <strong>Office Hours</strong>
+                                <span>Mon–Sat: 8:00 AM – 5:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-right">
+                    <form class="card" id="contact-form" novalidate>
+                        <h3 style="font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:24px">Send a
+                            Message</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" placeholder="John" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" placeholder="Doe" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" placeholder="john@email.com" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <select class="form-control">
+                                <option>Admissions Inquiry</option>
+                                <option>Program Information</option>
+                                <option>Fee Structure</option>
+                                <option>Scholarship</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" placeholder="Your message here..." rows="4"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── FOOTER ────────────────────────────────────── -->
+    <footer class="footer" aria-label="Footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo">
+                        <div class="logo-icon">GC</div>
+                        <div class="logo-text">
+                            <span class="logo-name">Greenfield College</span>
+                            <span class="logo-tagline">Excellence in Education</span>
+                        </div>
+                    </a>
+                    <p>Empowering students with knowledge, skills, and values to succeed in a rapidly changing world.
+                        Join our community of scholars and innovators.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i
+                                class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about" class="footer-link">About College</a></li>
+                        <li><a href="#programs" class="footer-link">Programs</a></li>
+                        <li><a href="#admissions" class="footer-link">Admissions</a></li>
+                        <li><a href="#news" class="footer-link">News & Events</a></li>
+                        <li><a href="#gallery" class="footer-link">Gallery</a></li>
+                        <li><a href="#contact" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Student Portal</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/student-login.html" class="footer-link">Student Login</a></li>
+                        <li><a href="pages/student-dashboard.html" class="footer-link">Dashboard</a></li>
+                        <li><a href="pages/result.html" class="footer-link">View Results</a></li>
+                        <li><a href="pages/fee-status.html" class="footer-link">Fee Status</a></li>
+                        <li><a href="pages/fee-payment.html" class="footer-link">Pay Fee</a></li>
+                        <li><a href="pages/timetable.html" class="footer-link">Timetable</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">123 Education Ave, Lahore</a></li>
+                        <li><a href="tel:+924234567890" class="footer-link">+92-42-3456-7890</a></li>
+                        <li><a href="mailto:info@greenfieldcollege.edu.pk"
+                                class="footer-link">info@greenfieldcollege.edu.pk</a></li>
+                        <li><a href="#" class="footer-link">Mon–Sat: 8AM – 5PM</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 <span>Greenfield College</span>. All rights reserved.</p>
+                <p>Designed with <span>♥</span> for excellence in education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

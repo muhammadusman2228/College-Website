@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard – Greenfield College</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="toast-container" id="admin-toast-container"></div>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon" style="background:linear-gradient(135deg,#0f3460,#16213e)"><i
+                            class="fa-solid fa-shield-check"></i></div>
+                    <div>
+                        <div class="sidebar-logo-text">Admin Panel</div>
+                        <div class="sidebar-logo-sub">Greenfield College</div>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-user">
+                <div class="sidebar-avatar" id="sidebar-avatar"
+                    style="background:linear-gradient(135deg,#0f3460,#16213e)">AD</div>
+                <div class="sidebar-user-name" id="sidebar-user-name">Administrator</div>
+                <div class="sidebar-user-id" id="sidebar-user-id">System Admin</div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Overview</div>
+                <a href="admin-dashboard.html" class="sidebar-link"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+                <div class="sidebar-section-label">Content</div>
+                <a href="admin-announcements.html" class="sidebar-link"><i class="fa-solid fa-bullhorn"></i>
+                    Announcements</a>
+                <div class="sidebar-section-label">Students</div>
+                <a href="admin-admissions.html" class="sidebar-link"><i class="fa-solid fa-file-pen"></i> Admissions</a>
+                <a href="admin-students.html" class="sidebar-link"><i class="fa-solid fa-users"></i> Students</a>
+                <div class="sidebar-section-label">Website</div>
+                <a href="../index.html" class="sidebar-link"><i class="fa-solid fa-globe"></i> View Website</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" data-action="logout"><i class="fa-solid fa-sign-out-alt"></i>
+                    Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div style="display:flex;align-items:center">
+                    <button class="sidebar-toggle" id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                    <div class="topbar-left">
+                        <div class="topbar-title">Admin Dashboard</div>
+                        <div class="topbar-subtitle">Welcome back, Administrator</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <a href="../index.html" class="btn btn-ghost btn-sm"><i class="fa-solid fa-globe"></i> View Site</a>
+                </div>
+            </header>
+
+            <div class="page-content" id="admin-dash-content">
+                <!-- Stats -->
+                <div class="admin-actions-grid">
+                    <div class="stat-card anim-fade-up stagger-1">
+                        <div class="stat-card-icon card-icon-info"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value" id="stat-total-students">—</div>
+                            <div class="stat-card-label">Total Students</div>
+                        </div>
+                    </div>
+                    <div class="stat-card anim-fade-up stagger-2">
+                        <div class="stat-card-icon card-icon-accent"><i class="fa-solid fa-bullhorn"></i></div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value" id="stat-announcements">—</div>
+                            <div class="stat-card-label">Announcements</div>
+                        </div>
+                    </div>
+                    <div class="stat-card anim-fade-up stagger-3">
+                        <div class="stat-card-icon card-icon-success"><i class="fa-solid fa-file-pen"></i></div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value" id="stat-admissions">—</div>
+                            <div class="stat-card-label">Applications</div>
+                        </div>
+                    </div>
+                    <div class="stat-card anim-fade-up stagger-4">
+                        <div class="stat-card-icon card-icon-gold"><i class="fa-solid fa-hourglass-half"></i></div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value" id="stat-pending-adm">—</div>
+                            <div class="stat-card-label">Pending Review</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <h3 style="font-size:1rem;font-weight:700;color:var(--white);margin-bottom:16px">Quick Actions</h3>
+                <div class="quick-links" style="margin-bottom:32px">
+                    <a href="admin-announcements.html" class="quick-link-card anim-fade-up stagger-1">
+                        <div class="quick-link-icon card-icon-accent"><i class="fa-solid fa-bullhorn"></i></div>
+                        <div class="quick-link-label">Announcements</div>
+                        <div class="quick-link-desc">Add / edit / delete news</div>
+                    </a>
+                    <a href="admin-admissions.html" class="quick-link-card anim-fade-up stagger-2">
+                        <div class="quick-link-icon card-icon-success"><i class="fa-solid fa-file-pen"></i></div>
+                        <div class="quick-link-label">Admissions</div>
+                        <div class="quick-link-desc">Review & manage applications</div>
+                    </a>
+                    <a href="admin-students.html" class="quick-link-card anim-fade-up stagger-3">
+                        <div class="quick-link-icon card-icon-info"><i class="fa-solid fa-users"></i></div>
+                        <div class="quick-link-label">Students</div>
+                        <div class="quick-link-desc">View all student records</div>
+                    </a>
+                </div>
+
+                <!-- Recent Announcements -->
+                <div class="page-card anim-fade-up">
+                    <div class="page-card-header">
+                        <div class="page-card-title"><i class="fa-solid fa-clock-rotate-left"></i> Recent Announcements
+                        </div>
+                        <a href="admin-announcements.html" class="btn btn-primary btn-sm">Manage All</a>
+                    </div>
+                    <div class="page-card-body" id="recent-ann-list">
+                        <p style="color:var(--text-muted)">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+
+</html>

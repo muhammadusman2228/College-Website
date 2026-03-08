@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Announcements – Admin | Greenfield College</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/forms.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="toast-container" id="admin-toast-container"></div>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon" style="background:linear-gradient(135deg,#0f3460,#16213e)"><i
+                            class="fa-solid fa-shield-check"></i></div>
+                    <div>
+                        <div class="sidebar-logo-text">Admin Panel</div>
+                        <div class="sidebar-logo-sub">Greenfield College</div>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-user">
+                <div class="sidebar-avatar" id="sidebar-avatar"
+                    style="background:linear-gradient(135deg,#0f3460,#16213e)">AD</div>
+                <div class="sidebar-user-name" id="sidebar-user-name">Administrator</div>
+                <div class="sidebar-user-id" id="sidebar-user-id">System Admin</div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Overview</div>
+                <a href="admin-dashboard.html" class="sidebar-link"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+                <div class="sidebar-section-label">Content</div>
+                <a href="admin-announcements.html" class="sidebar-link"><i class="fa-solid fa-bullhorn"></i>
+                    Announcements</a>
+                <div class="sidebar-section-label">Students</div>
+                <a href="admin-admissions.html" class="sidebar-link"><i class="fa-solid fa-file-pen"></i> Admissions</a>
+                <a href="admin-students.html" class="sidebar-link"><i class="fa-solid fa-users"></i> Students</a>
+                <div class="sidebar-section-label">Website</div>
+                <a href="../index.html" class="sidebar-link"><i class="fa-solid fa-globe"></i> View Website</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" data-action="logout"><i class="fa-solid fa-sign-out-alt"></i>
+                    Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div style="display:flex;align-items:center">
+                    <button class="sidebar-toggle" id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                    <div class="topbar-left">
+                        <div class="topbar-title">Manage Announcements</div>
+                        <div class="topbar-subtitle">Add, edit, and delete college announcements</div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <!-- Add Form -->
+                <div class="page-card anim-fade-up" style="margin-bottom:24px">
+                    <div class="page-card-header">
+                        <div class="page-card-title"><i class="fa-solid fa-plus-circle"></i> Add / Edit Announcement
+                        </div>
+                    </div>
+                    <div class="page-card-body">
+                        <form id="add-ann-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Title</label>
+                                    <input type="text" id="ann-title" class="form-control"
+                                        placeholder="Announcement title" required />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Category</label>
+                                    <select id="ann-category" class="form-control">
+                                        <option>General</option>
+                                        <option>Exams</option>
+                                        <option>Events</option>
+                                        <option>Admissions</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Author / Department</label>
+                                <input type="text" id="ann-author" class="form-control"
+                                    placeholder="e.g. Examination Department" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Content / Excerpt</label>
+                                <textarea id="ann-excerpt" class="form-control"
+                                    placeholder="Write the announcement content..." rows="4" required></textarea>
+                            </div>
+                            <div style="display:flex;gap:12px">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa-solid fa-paper-plane"></i> Publish Announcement
+                                </button>
+                                <button type="reset" class="btn btn-ghost">
+                                    <i class="fa-solid fa-rotate-left"></i> Clear
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Announcements List -->
+                <div id="ann-list-container">
+                    <p style="color:var(--text-muted);padding:20px">Loading announcements...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+
+</html>

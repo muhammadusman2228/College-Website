@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Students – Admin | Greenfield College</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/forms.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="toast-container" id="admin-toast-container"></div>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon" style="background:linear-gradient(135deg,#0f3460,#16213e)"><i
+                            class="fa-solid fa-shield-check"></i></div>
+                    <div>
+                        <div class="sidebar-logo-text">Admin Panel</div>
+                        <div class="sidebar-logo-sub">Greenfield College</div>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-user">
+                <div class="sidebar-avatar" id="sidebar-avatar"
+                    style="background:linear-gradient(135deg,#0f3460,#16213e)">AD</div>
+                <div class="sidebar-user-name" id="sidebar-user-name">Administrator</div>
+                <div class="sidebar-user-id" id="sidebar-user-id">System Admin</div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Overview</div>
+                <a href="admin-dashboard.html" class="sidebar-link"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+                <div class="sidebar-section-label">Content</div>
+                <a href="admin-announcements.html" class="sidebar-link"><i class="fa-solid fa-bullhorn"></i>
+                    Announcements</a>
+                <div class="sidebar-section-label">Students</div>
+                <a href="admin-admissions.html" class="sidebar-link"><i class="fa-solid fa-file-pen"></i> Admissions</a>
+                <a href="admin-students.html" class="sidebar-link"><i class="fa-solid fa-users"></i> Students</a>
+                <div class="sidebar-section-label">Website</div>
+                <a href="../index.html" class="sidebar-link"><i class="fa-solid fa-globe"></i> View Website</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" data-action="logout"><i class="fa-solid fa-sign-out-alt"></i>
+                    Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div style="display:flex;align-items:center">
+                    <button class="sidebar-toggle" id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                    <div class="topbar-left">
+                        <div class="topbar-title">Student Records</div>
+                        <div class="topbar-subtitle">View all enrolled students</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="input-group" style="max-width:250px">
+                        <span class="input-icon" style="left:12px"><i class="fa-solid fa-search"></i></span>
+                        <input type="text" id="student-search" class="form-control" placeholder="Search students..."
+                            style="padding-left:36px;height:40px;font-size:0.85rem" />
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <!-- Stats row -->
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">
+                    <div class="stat-card anim-fade-up stagger-1">
+                        <div class="stat-card-icon card-icon-info"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value">3</div>
+                            <div class="stat-card-label">Total Students</div>
+                        </div>
+                    </div>
+                    <div class="stat-card anim-fade-up stagger-2">
+                        <div class="stat-card-icon card-icon-success"><i class="fa-solid fa-user-check"></i></div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value">3</div>
+                            <div class="stat-card-label">Active</div>
+                        </div>
+                    </div>
+                    <div class="stat-card anim-fade-up stagger-3">
+                        <div class="stat-card-icon card-icon-accent"><i class="fa-solid fa-star"></i></div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value">3.62</div>
+                            <div class="stat-card-label">Avg. GPA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Students Table -->
+                <div class="page-card anim-fade-up">
+                    <div class="page-card-header">
+                        <div class="page-card-title"><i class="fa-solid fa-table"></i> All Students</div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Roll Number</th>
+                                    <th>Program</th>
+                                    <th>Semester</th>
+                                    <th>GPA</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="students-tbody">
+                                <tr>
+                                    <td colspan="6" style="text-align:center;color:var(--text-muted);padding:40px">
+                                        Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+
+</html>

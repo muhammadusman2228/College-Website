@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pay Fee – Greenfield College</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/forms.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">GC</div>
+                    <div>
+                        <div class="sidebar-logo-text">Greenfield College</div>
+                        <div class="sidebar-logo-sub">Student Portal</div>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-user">
+                <div class="sidebar-avatar" id="sidebar-avatar">SA</div>
+                <div class="sidebar-user-name" id="sidebar-user-name">Student Name</div>
+                <div class="sidebar-user-id" id="sidebar-user-id">Roll Number</div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Main Menu</div>
+                <a href="student-dashboard.html" class="sidebar-link"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+                <a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-circle"></i> My Profile</a>
+                <a href="result.html" class="sidebar-link"><i class="fa-solid fa-chart-bar"></i> My Results</a>
+                <div class="sidebar-section-label">Finance</div>
+                <a href="fee-status.html" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> Fee
+                    Status</a>
+                <a href="fee-payment.html" class="sidebar-link"><i class="fa-solid fa-credit-card"></i> Pay Fee</a>
+                <div class="sidebar-section-label">Schedule</div>
+                <a href="timetable.html" class="sidebar-link"><i class="fa-solid fa-calendar-alt"></i> Timetable</a>
+                <div class="sidebar-section-label">College</div>
+                <a href="../index.html" class="sidebar-link"><i class="fa-solid fa-home"></i> College Website</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" data-action="logout"><i class="fa-solid fa-sign-out-alt"></i>
+                    Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div style="display:flex;align-items:center">
+                    <button class="sidebar-toggle" id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                    <div class="topbar-left">
+                        <div class="topbar-title">Pay Fee Online</div>
+                        <div class="topbar-subtitle">Secure payment gateway</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--success)">
+                        <i class="fa-solid fa-shield-check"></i> SSL Secured
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="payment-container">
+                    <!-- Step Indicator -->
+                    <div class="step-indicator">
+                        <div class="step-item active" id="step-1-item">
+                            <div class="step-circle">1</div>
+                            <div class="step-label">Select Fee</div>
+                        </div>
+                        <div class="step-line" id="step-line-1"></div>
+                        <div class="step-item" id="step-2-item">
+                            <div class="step-circle">2</div>
+                            <div class="step-label">Card Details</div>
+                        </div>
+                        <div class="step-line" id="step-line-2"></div>
+                        <div class="step-item" id="step-3-item">
+                            <div class="step-circle">3</div>
+                            <div class="step-label">Receipt</div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 1: Fee Selection -->
+                    <div class="payment-step" data-step="1">
+                        <div class="page-card">
+                            <div class="page-card-header">
+                                <div class="page-card-title"><i class="fa-solid fa-file-invoice-dollar"></i> Select Fee
+                                    to Pay</div>
+                            </div>
+                            <div class="page-card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Choose Fee Item</label>
+                                    <select id="payment-amount-select" class="form-control">
+                                        <option value="">-- Select a fee item --</option>
+                                    </select>
+                                </div>
+                                <div
+                                    style="background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);border-radius:var(--radius-md);padding:16px;margin:16px 0">
+                                    <p
+                                        style="font-size:0.82rem;color:var(--gold);display:flex;align-items:flex-start;gap:8px">
+                                        <i class="fa-solid fa-circle-info" style="margin-top:2px"></i>
+                                        All transactions are processed through our secure payment gateway. Your card
+                                        details are encrypted and never stored on our servers.
+                                    </p>
+                                </div>
+                                <button type="button" class="btn btn-primary btn-block" id="next-step-1">
+                                    Continue to Payment <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Card Details -->
+                    <div class="payment-step" data-step="2" style="display:none">
+                        <!-- Card Preview -->
+                        <div class="card-preview" style="margin-bottom:24px">
+                            <div class="card-chip"></div>
+                            <div class="card-number-display" id="card-number-display">•••• •••• •••• ••••</div>
+                            <div class="card-bottom">
+                                <div>
+                                    <div style="font-size:0.65rem;color:rgba(255,255,255,0.5);margin-bottom:2px">CARD
+                                        HOLDER</div>
+                                    <div class="card-holder-display" id="card-holder-display">YOUR NAME</div>
+                                </div>
+                                <div style="text-align:right">
+                                    <div style="font-size:0.65rem;color:rgba(255,255,255,0.5);margin-bottom:2px">EXPIRES
+                                    </div>
+                                    <div class="card-expiry-display" id="card-expiry-display">MM/YY</div>
+                                </div>
+                                <div class="card-logo"><i class="fa-brands fa-cc-visa"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="page-card">
+                            <div class="page-card-header">
+                                <div class="page-card-title"><i class="fa-solid fa-credit-card"></i> Card Information
+                                </div>
+                                <div style="display:flex;gap:8px">
+                                    <i class="fa-brands fa-cc-visa" style="font-size:1.5rem;color:var(--info)"></i>
+                                    <i class="fa-brands fa-cc-mastercard"
+                                        style="font-size:1.5rem;color:var(--warning)"></i>
+                                </div>
+                            </div>
+                            <div class="page-card-body">
+                                <div
+                                    style="background:rgba(52,152,219,0.08);border:1px solid rgba(52,152,219,0.2);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:20px;font-size:0.82rem;color:var(--info)">
+                                    Amount due: <strong id="payment-amount-display">—</strong>
+                                </div>
+
+                                <form id="payment-form">
+                                    <div class="form-group">
+                                        <label class="form-label">Card Number</label>
+                                        <div class="input-group">
+                                            <span class="input-icon"><i class="fa-solid fa-credit-card"></i></span>
+                                            <input type="text" id="card-number" class="form-control"
+                                                placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Card Holder Name</label>
+                                        <div class="input-group">
+                                            <span class="input-icon"><i class="fa-solid fa-user"></i></span>
+                                            <input type="text" id="card-holder" class="form-control"
+                                                placeholder="Name on card" />
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label class="form-label">Expiry Date</label>
+                                            <div class="input-group">
+                                                <span class="input-icon"><i class="fa-solid fa-calendar"></i></span>
+                                                <input type="text" id="card-expiry" class="form-control"
+                                                    placeholder="MM/YY" maxlength="5" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">CVV</label>
+                                            <div class="input-group">
+                                                <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
+                                                <input type="password" id="card-cvv" class="form-control"
+                                                    placeholder="•••" maxlength="3" inputmode="numeric" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex;gap:12px;margin-top:8px">
+                                        <button type="button" class="btn btn-ghost" id="back-step-2" style="flex:1">
+                                            <i class="fa-solid fa-arrow-left"></i> Back
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" style="flex:2">
+                                            <i class="fa-solid fa-lock"></i> Pay Securely
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Receipt -->
+                    <div class="payment-step" data-step="3" style="display:none">
+                        <div class="page-card" style="text-align:center">
+                            <div class="page-card-body" style="padding:48px 28px">
+                                <div class="modal-icon modal-icon-success anim-scale-in" style="margin-bottom:24px">
+                                    <i class="fa-solid fa-check-double"></i>
+                                </div>
+                                <h2
+                                    style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--white);margin-bottom:8px">
+                                    Payment Successful!</h2>
+                                <p style="color:var(--text-muted);margin-bottom:32px">Your payment has been processed
+                                    successfully. A receipt has been generated below.</p>
+
+                                <div
+                                    style="background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-md);padding:24px;text-align:left;margin-bottom:32px">
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                                        <div>
+                                            <div
+                                                style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">
+                                                Transaction ID</div>
+                                            <div style="font-size:0.9rem;font-weight:600;color:var(--accent)"
+                                                id="receipt-txn">—</div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">
+                                                Amount Paid</div>
+                                            <div style="font-size:0.9rem;font-weight:600;color:var(--success)"
+                                                id="receipt-amount">—</div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">
+                                                Date & Time</div>
+                                            <div style="font-size:0.9rem;font-weight:500;color:var(--white)"
+                                                id="receipt-date">—</div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">
+                                                Card Used</div>
+                                            <div style="font-size:0.9rem;font-weight:500;color:var(--white)"
+                                                id="receipt-card">—</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+                                    <a href="fee-status.html" class="btn btn-primary">
+                                        <i class="fa-solid fa-file-invoice-dollar"></i> View Fee Status
+                                    </a>
+                                    <a href="student-dashboard.html" class="btn btn-ghost">
+                                        <i class="fa-solid fa-home"></i> Dashboard
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/student.js"></script>
+</body>
+
+</html>

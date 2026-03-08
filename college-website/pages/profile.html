@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile – Greenfield College</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">GC</div>
+                    <div>
+                        <div class="sidebar-logo-text">Greenfield College</div>
+                        <div class="sidebar-logo-sub">Student Portal</div>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-user">
+                <div class="sidebar-avatar" id="sidebar-avatar">SA</div>
+                <div class="sidebar-user-name" id="sidebar-user-name">Student Name</div>
+                <div class="sidebar-user-id" id="sidebar-user-id">Roll Number</div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Main Menu</div>
+                <a href="student-dashboard.html" class="sidebar-link"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+                <a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-circle"></i> My Profile</a>
+                <a href="result.html" class="sidebar-link"><i class="fa-solid fa-chart-bar"></i> My Results</a>
+                <div class="sidebar-section-label">Finance</div>
+                <a href="fee-status.html" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> Fee
+                    Status</a>
+                <a href="fee-payment.html" class="sidebar-link"><i class="fa-solid fa-credit-card"></i> Pay Fee</a>
+                <div class="sidebar-section-label">Schedule</div>
+                <a href="timetable.html" class="sidebar-link"><i class="fa-solid fa-calendar-alt"></i> Timetable</a>
+                <div class="sidebar-section-label">College</div>
+                <a href="../index.html" class="sidebar-link"><i class="fa-solid fa-home"></i> College Website</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" data-action="logout"><i class="fa-solid fa-sign-out-alt"></i>
+                    Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div style="display:flex;align-items:center">
+                    <button class="sidebar-toggle" id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                    <div class="topbar-left">
+                        <div class="topbar-title">My Profile</div>
+                        <div class="topbar-subtitle">Personal & Academic Information</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="topbar-btn"><i class="fa-solid fa-bell"></i><span class="notif-dot"></span></button>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <div class="page-card anim-scale-in">
+                    <div class="profile-avatar-section">
+                        <div class="profile-avatar" id="profile-avatar-initials">SA</div>
+                        <div class="profile-name" id="profile-name-display">Student Name</div>
+                        <div class="profile-id" id="profile-roll">Roll Number</div>
+                        <div style="display:flex;gap:12px;margin-top:16px">
+                            <span class="badge badge-success" id="pf-status"><span>Active</span></span>
+                            <span class="badge badge-info">Student</span>
+                        </div>
+                    </div>
+
+                    <!-- Personal Info -->
+                    <div style="padding:0 28px 4px;border-bottom:1px solid var(--glass-border)">
+                        <h3
+                            style="font-size:0.85rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;padding:20px 0 12px;display:flex;align-items:center;gap:8px">
+                            <i class="fa-solid fa-user" style="color:var(--accent)"></i> Personal Information
+                        </h3>
+                    </div>
+                    <div class="profile-info-grid">
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Full Name</div>
+                            <div class="profile-info-value" id="pf-name">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Email Address</div>
+                            <div class="profile-info-value" id="pf-email">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Phone Number</div>
+                            <div class="profile-info-value" id="pf-phone">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Date of Birth</div>
+                            <div class="profile-info-value" id="pf-dob">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">CNIC</div>
+                            <div class="profile-info-value" id="pf-cnic">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Address</div>
+                            <div class="profile-info-value" id="pf-address">—</div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Info -->
+                    <div
+                        style="padding:0 28px 4px;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)">
+                        <h3
+                            style="font-size:0.85rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;padding:20px 0 12px;display:flex;align-items:center;gap:8px">
+                            <i class="fa-solid fa-graduation-cap" style="color:var(--accent)"></i> Academic Information
+                        </h3>
+                    </div>
+                    <div class="profile-info-grid">
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Program</div>
+                            <div class="profile-info-value" id="pf-program">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Current Semester</div>
+                            <div class="profile-info-value" id="pf-semester">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Section</div>
+                            <div class="profile-info-value" id="pf-section">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Roll Number</div>
+                            <div class="profile-info-value" id="pf-rollno">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Admission Date</div>
+                            <div class="profile-info-value" id="pf-admission">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Current GPA</div>
+                            <div class="profile-info-value" id="pf-gpa">—</div>
+                        </div>
+                    </div>
+
+                    <!-- Guardian Info -->
+                    <div
+                        style="padding:0 28px 4px;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)">
+                        <h3
+                            style="font-size:0.85rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;padding:20px 0 12px;display:flex;align-items:center;gap:8px">
+                            <i class="fa-solid fa-users" style="color:var(--accent)"></i> Guardian Information
+                        </h3>
+                    </div>
+                    <div class="profile-info-grid" style="padding-bottom:28px">
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Guardian Name</div>
+                            <div class="profile-info-value" id="pf-guardian">—</div>
+                        </div>
+                        <div class="profile-info-item">
+                            <div class="profile-info-label">Guardian Phone</div>
+                            <div class="profile-info-value" id="pf-guardian-phone">—</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/student.js"></script>
+</body>
+
+</html>

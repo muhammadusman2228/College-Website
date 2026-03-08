@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard – Greenfield College</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="toast-container" id="toast-container"></div>
+
+    <div class="dashboard-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">GC</div>
+                    <div>
+                        <div class="sidebar-logo-text">Greenfield College</div>
+                        <div class="sidebar-logo-sub">Student Portal</div>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-user">
+                <div class="sidebar-avatar" id="sidebar-avatar">SA</div>
+                <div class="sidebar-user-name" id="sidebar-user-name">Student Name</div>
+                <div class="sidebar-user-id" id="sidebar-user-id">Roll Number</div>
+            </div>
+            <nav class="sidebar-nav" aria-label="Student portal navigation">
+                <div class="sidebar-section-label">Main Menu</div>
+                <a href="student-dashboard.html" class="sidebar-link">
+                    <i class="fa-solid fa-grid-2"></i> Dashboard
+                </a>
+                <a href="profile.html" class="sidebar-link">
+                    <i class="fa-solid fa-user-circle"></i> My Profile
+                </a>
+                <a href="result.html" class="sidebar-link">
+                    <i class="fa-solid fa-chart-bar"></i> My Results
+                </a>
+                <div class="sidebar-section-label">Finance</div>
+                <a href="fee-status.html" class="sidebar-link">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Fee Status
+                </a>
+                <a href="fee-payment.html" class="sidebar-link">
+                    <i class="fa-solid fa-credit-card"></i> Pay Fee
+                </a>
+                <div class="sidebar-section-label">Schedule</div>
+                <a href="timetable.html" class="sidebar-link">
+                    <i class="fa-solid fa-calendar-alt"></i> Timetable
+                </a>
+                <div class="sidebar-section-label">College</div>
+                <a href="../index.html" class="sidebar-link">
+                    <i class="fa-solid fa-home"></i> College Website
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" data-action="logout" aria-label="Logout">
+                    <i class="fa-solid fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header class="topbar">
+                <div style="display:flex;align-items:center">
+                    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar"><i
+                            class="fa-solid fa-bars"></i></button>
+                    <div class="topbar-left">
+                        <div class="topbar-title">Dashboard</div>
+                        <div class="topbar-subtitle" id="topbar-date">Welcome back!</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="topbar-btn" aria-label="Notifications">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notif-dot"></span>
+                    </button>
+                    <button class="topbar-btn" onclick="window.location.href='profile.html'" aria-label="Profile">
+                        <i class="fa-solid fa-user"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="page-content" id="dashboard-welcome-section">
+                <!-- Welcome Banner -->
+                <div class="welcome-banner anim-fade-up">
+                    <div class="welcome-greeting">Good day,</div>
+                    <div class="welcome-name">Hello, <span id="dashboard-welcome">Student</span></div>
+                    <div class="welcome-text">Here's an overview of your academic progress and pending tasks.</div>
+                    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+                        <a href="result.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-chart-bar"></i> View
+                            Results</a>
+                        <a href="fee-payment.html" class="btn btn-gold btn-sm"><i class="fa-solid fa-credit-card"></i>
+                            Pay Fee</a>
+                        <a href="timetable.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-calendar"></i>
+                            Timetable</a>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="dash-stats" id="dash-stats-content">
+                    <div class="stat-card anim-fade-up stagger-1">
+                        <div class="stat-card-icon card-icon-accent"><i class="fa-solid fa-star"></i></div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value" id="stat-gpa">—</div>
+                            <div class="stat-card-label">Current GPA</div>
+                        </div>
+                    </div>
+                    <div class="stat-card anim-fade-up stagger-2">
+                        <div class="stat-card-icon card-icon-info"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value" id="stat-program" style="font-size:1rem">—</div>
+                            <div class="stat-card-label">Program</div>
+                        </div>
+                    </div>
+                    <div class="stat-card anim-fade-up stagger-3">
+                        <div class="stat-card-icon card-icon-success"><i class="fa-solid fa-layer-group"></i></div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value" id="stat-sem">—</div>
+                            <div class="stat-card-label">Current Semester</div>
+                        </div>
+                    </div>
+                    <div class="stat-card anim-fade-up stagger-4">
+                        <div class="stat-card-icon card-icon-gold"><i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div class="stat-card-body">
+                            <div class="stat-card-value" id="stat-fee" style="font-size:1rem">—</div>
+                            <div class="stat-card-label">Fee Due</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <h3 style="font-size:1rem;font-weight:700;color:var(--white);margin-bottom:16px">Quick Access</h3>
+                <div class="quick-links">
+                    <a href="profile.html" class="quick-link-card anim-fade-up stagger-1">
+                        <div class="quick-link-icon card-icon-info"><i class="fa-solid fa-user-circle"></i></div>
+                        <div class="quick-link-label">My Profile</div>
+                        <div class="quick-link-desc">View & update personal info</div>
+                    </a>
+                    <a href="result.html" class="quick-link-card anim-fade-up stagger-2">
+                        <div class="quick-link-icon card-icon-accent"><i class="fa-solid fa-chart-bar"></i></div>
+                        <div class="quick-link-label">Academic Results</div>
+                        <div class="quick-link-desc">View semester-wise results</div>
+                    </a>
+                    <a href="fee-status.html" class="quick-link-card anim-fade-up stagger-3">
+                        <div class="quick-link-icon card-icon-success"><i class="fa-solid fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="quick-link-label">Fee Status</div>
+                        <div class="quick-link-desc">Check paid & pending dues</div>
+                    </a>
+                    <a href="fee-payment.html" class="quick-link-card anim-fade-up stagger-4">
+                        <div class="quick-link-icon card-icon-gold"><i class="fa-solid fa-credit-card"></i></div>
+                        <div class="quick-link-label">Pay Fee Online</div>
+                        <div class="quick-link-desc">Secure card payment</div>
+                    </a>
+                    <a href="timetable.html" class="quick-link-card anim-fade-up stagger-5">
+                        <div class="quick-link-icon" style="background:rgba(155,89,182,0.15);color:#9b59b6"><i
+                                class="fa-solid fa-calendar-alt"></i></div>
+                        <div class="quick-link-label">Class Timetable</div>
+                        <div class="quick-link-desc">View weekly schedule</div>
+                    </a>
+                    <a href="../index.html#news" class="quick-link-card anim-fade-up stagger-6">
+                        <div class="quick-link-icon" style="background:rgba(26,188,156,0.15);color:#1abc9c"><i
+                                class="fa-solid fa-bullhorn"></i></div>
+                        <div class="quick-link-label">Announcements</div>
+                        <div class="quick-link-desc">Latest news & notices</div>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/student.js"></script>
+</body>
+
+</html>

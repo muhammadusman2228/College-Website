@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admissions – Admin | Greenfield College</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/forms.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="toast-container" id="admin-toast-container"></div>
+
+    <!-- Add Admission Modal -->
+    <div class="modal-backdrop hidden" id="add-adm-modal">
+        <div class="modal">
+            <button class="modal-close" id="close-adm-modal"><i class="fa-solid fa-times"></i></button>
+            <h2 class="modal-title" style="text-align:left;font-size:1.2rem;margin-bottom:20px">
+                <i class="fa-solid fa-file-pen" style="color:var(--accent)"></i> New Application
+            </h2>
+            <form id="add-adm-form">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="adm-name" class="form-control" placeholder="Applicant full name" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Program</label>
+                    <select id="adm-program" class="form-control" required>
+                        <option value="">-- Select Program --</option>
+                        <option>BS Computer Science</option>
+                        <option>BS Electrical Engineering</option>
+                        <option>BBA</option>
+                        <option>BS Chemistry</option>
+                        <option>BS Biotechnology</option>
+                        <option>LLB (Hons)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">CNIC</label>
+                    <input type="text" id="adm-cnic" class="form-control" placeholder="35201-1234567-1" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="adm-email" class="form-control" placeholder="applicant@email.com"
+                        required />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fa-solid fa-plus"></i> Add Application
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon" style="background:linear-gradient(135deg,#0f3460,#16213e)"><i
+                            class="fa-solid fa-shield-check"></i></div>
+                    <div>
+                        <div class="sidebar-logo-text">Admin Panel</div>
+                        <div class="sidebar-logo-sub">Greenfield College</div>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-user">
+                <div class="sidebar-avatar" id="sidebar-avatar"
+                    style="background:linear-gradient(135deg,#0f3460,#16213e)">AD</div>
+                <div class="sidebar-user-name" id="sidebar-user-name">Administrator</div>
+                <div class="sidebar-user-id" id="sidebar-user-id">System Admin</div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Overview</div>
+                <a href="admin-dashboard.html" class="sidebar-link"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+                <div class="sidebar-section-label">Content</div>
+                <a href="admin-announcements.html" class="sidebar-link"><i class="fa-solid fa-bullhorn"></i>
+                    Announcements</a>
+                <div class="sidebar-section-label">Students</div>
+                <a href="admin-admissions.html" class="sidebar-link"><i class="fa-solid fa-file-pen"></i> Admissions</a>
+                <a href="admin-students.html" class="sidebar-link"><i class="fa-solid fa-users"></i> Students</a>
+                <div class="sidebar-section-label">Website</div>
+                <a href="../index.html" class="sidebar-link"><i class="fa-solid fa-globe"></i> View Website</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" data-action="logout"><i class="fa-solid fa-sign-out-alt"></i>
+                    Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div style="display:flex;align-items:center">
+                    <button class="sidebar-toggle" id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                    <div class="topbar-left">
+                        <div class="topbar-title">Admissions Management</div>
+                        <div class="topbar-subtitle">Review and process student applications</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="btn btn-primary btn-sm" id="open-add-adm">
+                        <i class="fa-solid fa-plus"></i> New Application
+                    </button>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <!-- Filter Buttons -->
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">
+                    <button class="btn btn-primary btn-sm active" data-filter="All">All</button>
+                    <button class="btn btn-ghost btn-sm" data-filter="Pending">
+                        <span class="badge badge-warning" style="font-size:0.65rem">●</span> Pending
+                    </button>
+                    <button class="btn btn-ghost btn-sm" data-filter="Approved">
+                        <span class="badge badge-success" style="font-size:0.65rem">●</span> Approved
+                    </button>
+                    <button class="btn btn-ghost btn-sm" data-filter="Rejected">
+                        <span class="badge badge-danger" style="font-size:0.65rem">●</span> Rejected
+                    </button>
+                </div>
+
+                <!-- Table -->
+                <div class="page-card anim-fade-up">
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>App ID</th>
+                                    <th>Applicant Name</th>
+                                    <th>Program</th>
+                                    <th>Applied On</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admissions-tbody">
+                                <tr>
+                                    <td colspan="6" style="text-align:center;color:var(--text-muted);padding:40px">
+                                        Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Login – Greenfield College</title>
+    <meta name="description"
+        content="Login to the Greenfield College Student Portal to access your results, fee status, timetable, and more." />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/forms.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+    <div class="auth-page">
+        <div class="auth-container">
+            <a href="../index.html" class="auth-logo">
+                <div class="auth-logo-icon">GC</div>
+                <span class="auth-logo-name">Greenfield College</span>
+            </a>
+
+            <h1 class="auth-title">Welcome Back</h1>
+            <p class="auth-subtitle">Sign in to your student portal</p>
+
+            <div class="demo-creds">
+                <p><i class="fa-solid fa-circle-info"></i> <strong>Demo:</strong> sara@college.edu / password123</p>
+                <p><i class="fa-solid fa-circle-info"></i> Other: ali@college.edu / pass456 | fatima@college.edu /
+                    khan789</p>
+            </div>
+
+            <div id="login-error"
+                style="display:none;color:var(--danger);font-size:0.82rem;margin-bottom:16px;padding:12px;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.2);border-radius:var(--radius-md)">
+            </div>
+
+            <form id="student-login-form" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="login-email">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fa-solid fa-envelope"></i></span>
+                        <input type="email" id="login-email" class="form-control" placeholder="student@college.edu"
+                            autocomplete="email" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="login-password">
+                        Password
+                        <a href="#" class="forgot-link">Forgot Password?</a>
+                    </label>
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" id="login-password" class="form-control"
+                            placeholder="Enter your password" autocomplete="current-password" required />
+                        <button type="button" class="password-toggle" id="pwd-toggle"
+                            aria-label="Toggle password visibility">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:flex;align-items:center;justify-content:space-between">
+                    <label class="form-check">
+                        <input type="checkbox" id="remember-me" />
+                        <span class="form-check-label">Remember me</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg" id="login-submit-btn">
+                    <i class="fa-solid fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Not a student? <a href="admin-login.html">Admin Login</a></p>
+                <p style="margin-top:8px"><a href="../index.html"><i class="fa-solid fa-arrow-left"></i> Back to
+                        Homepage</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/student.js"></script>
+</body>
+
+</html>

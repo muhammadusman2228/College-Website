@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class Timetable – Greenfield College</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">GC</div>
+                    <div>
+                        <div class="sidebar-logo-text">Greenfield College</div>
+                        <div class="sidebar-logo-sub">Student Portal</div>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-user">
+                <div class="sidebar-avatar" id="sidebar-avatar">SA</div>
+                <div class="sidebar-user-name" id="sidebar-user-name">Student Name</div>
+                <div class="sidebar-user-id" id="sidebar-user-id">Roll Number</div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Main Menu</div>
+                <a href="student-dashboard.html" class="sidebar-link"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+                <a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-circle"></i> My Profile</a>
+                <a href="result.html" class="sidebar-link"><i class="fa-solid fa-chart-bar"></i> My Results</a>
+                <div class="sidebar-section-label">Finance</div>
+                <a href="fee-status.html" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> Fee
+                    Status</a>
+                <a href="fee-payment.html" class="sidebar-link"><i class="fa-solid fa-credit-card"></i> Pay Fee</a>
+                <div class="sidebar-section-label">Schedule</div>
+                <a href="timetable.html" class="sidebar-link"><i class="fa-solid fa-calendar-alt"></i> Timetable</a>
+                <div class="sidebar-section-label">College</div>
+                <a href="../index.html" class="sidebar-link"><i class="fa-solid fa-home"></i> College Website</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" data-action="logout"><i class="fa-solid fa-sign-out-alt"></i>
+                    Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div style="display:flex;align-items:center">
+                    <button class="sidebar-toggle" id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                    <div class="topbar-left">
+                        <div class="topbar-title">Class Timetable</div>
+                        <div class="topbar-subtitle" id="tt-program">Weekly schedule</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div style="font-size:0.8rem;color:var(--text-muted)">
+                        <i class="fa-solid fa-calendar-week" style="color:var(--accent)"></i>
+                        Spring 2025
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-content">
+                <!-- Color Legend -->
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px" class="anim-fade-up">
+                    <span class="tt-cell tt-cs" style="border-radius:var(--radius-sm);font-size:0.72rem">Computer
+                        Science</span>
+                    <span class="tt-cell tt-math"
+                        style="border-radius:var(--radius-sm);font-size:0.72rem">Mathematics</span>
+                    <span class="tt-cell tt-phy" style="border-radius:var(--radius-sm);font-size:0.72rem">Physics /
+                        Electrical</span>
+                    <span class="tt-cell tt-eng" style="border-radius:var(--radius-sm);font-size:0.72rem">English /
+                        BBA</span>
+                    <span class="tt-cell tt-break" style="border-radius:var(--radius-sm);font-size:0.72rem">Break /
+                        Prayer</span>
+                </div>
+
+                <div class="page-card anim-fade-up">
+                    <div class="page-card-header">
+                        <div class="page-card-title"><i class="fa-solid fa-calendar-alt"></i> Weekly Schedule</div>
+                    </div>
+                    <div class="timetable-grid">
+                        <table class="timetable-table">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>08:00–09:00</th>
+                                    <th>09:00–10:00</th>
+                                    <th>10:00–11:00</th>
+                                    <th>11:00–12:00</th>
+                                    <th>12:00–01:00</th>
+                                    <th>01:00–02:00</th>
+                                    <th>02:00–03:00</th>
+                                </tr>
+                            </thead>
+                            <tbody id="timetable-body">
+                                <tr>
+                                    <td colspan="8" style="text-align:center;color:var(--text-muted);padding:40px">
+                                        Loading timetable...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/student.js"></script>
+</body>
+
+</html>
