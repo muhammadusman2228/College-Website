@@ -12,8 +12,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { get } = require('../db/database');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'greenfield_secret';
+const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES_IN || '7d';
+
+if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is required but not set.');
+}
 
 /** POST /api/auth/student-login */
 router.post('/student-login', async (req, res) => {
@@ -66,8 +70,8 @@ router.post('/admin-login', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Username and password are required.' });
         }
 
-        const validUsername = username === (process.env.ADMIN_USERNAME || 'admin');
-        const validPassword = password === (process.env.ADMIN_PASSWORD || 'admin123');
+        const validUsername = username === process.env.ADMIN_USERNAME;
+        const validPassword = password === process.env.ADMIN_PASSWORD;
 
         if (!validUsername || !validPassword) {
             return res.status(401).json({ success: false, message: 'Invalid admin credentials.' });

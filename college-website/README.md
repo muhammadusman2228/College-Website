@@ -1,174 +1,121 @@
-# 🎓 Greenfield College – Full Stack Web Application
+# Greenfield College Website
 
-A fully-featured college management website built with **vanilla HTML/CSS/JS** frontend and a **Node.js + Express + SQLite** backend, featuring **Stripe** payment integration.
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+A full-stack college management system I built from scratch. Students can log in to check their results, fee status, and pay fees online. The admin side handles announcements, admissions, and student records. The backend runs on Node.js with a SQLite database and Stripe for payments.
 
 ---
 
-## ✨ Features
+## What it does
 
-### 🎓 Student Portal
-- **Secure Login** – JWT authentication with bcrypt-hashed passwords
-- **Dashboard** – GPA, semester, program overview, quick links
-- **Profile** – Personal, academic, and guardian information
-- **Results** – Semester-wise academic results with grade progress bars
-- **Fee Status** – Summary overview, progress bar, paid/pending/overdue breakdown
-- **Pay Fee** – Multi-step payment form with live card preview (Stripe integration)
-- **Timetable** – Color-coded weekly class schedule
+**Student Portal**
+- Login with a verified college email
+- View semester results and CGPA
+- Check fee breakdown (paid, pending, overdue)
+- Pay fees online via Stripe
+- View weekly class timetable
+- Access personal and academic profile
 
-### 🔐 Admin Panel
-- **Dashboard** – Real-time stats (students, announcements, applications)
-- **Announcements** – Create, edit, and delete college announcements (appears on public site)
-- **Admissions** – Review applications, approve or reject with status filters
-- **Students** – Searchable student records directory
+**Admin Panel**
+- See live stats (students, applications, announcements)
+- Post and delete college announcements (shows on the main site)
+- Review admission applications — approve or reject
+- Search through student records
 
-### 🌐 Landing Page
-- Animated hero section with particle effects
-- Programs grid, news, admissions timeline, gallery, contact form
-- Fully responsive (mobile-first)
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Frontend | HTML5, CSS3 (glassmorphism), Vanilla JS |
-| Backend | Node.js + Express.js |
-| Database | SQLite (via `sql.js`) |
-| Auth | JWT + bcryptjs |
-| Payments | Stripe SDK + Stripe.js |
-| Security | Helmet, CORS, Rate Limiting |
-| Icons | Font Awesome 6 |
-| Fonts | Google Fonts (Poppins, Playfair Display) |
+**Main Website**
+- Programs offered, latest announcements, admissions info
+- Contact form, gallery section
+- Fully mobile responsive
 
 ---
 
-## 🚀 Quick Start
+## Tech used
 
-### Prerequisites
-- Node.js v18+ ([nodejs.org](https://nodejs.org))
-- npm
-- A free [Stripe](https://stripe.com) account (for real payments; mock mode works without it)
+- **Frontend** — HTML, CSS (glassmorphism design), Vanilla JavaScript
+- **Backend** — Node.js, Express.js
+- **Database** — SQLite via sql.js
+- **Auth** — JWT tokens + bcrypt password hashing
+- **Payments** — Stripe API
+- **Security** — Helmet, CORS, rate limiting
 
-### Setup
+---
+
+## Running locally
+
+You'll need Node.js v18+ installed.
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/muhammadusman2228/college-website.git
-cd college-website
-
-# 2. Install backend dependencies
-cd server
+git clone https://github.com/muhammadusman2228/College-Website.git
+cd College-Website/college-website/server
 npm install
+```
 
-# 3. Configure environment variables
+Copy the environment file and fill in your values:
+
+```bash
 cp .env.example .env
-# Edit .env with your JWT secret and Stripe keys
+```
 
-# 4. Seed the database with demo data
+Seed the database with sample data:
+
+```bash
 node db/seed.js
+```
 
-# 5. Start the server
+Start the server:
+
+```bash
 npm run dev
 ```
 
-Then open **http://localhost:3001** 🎉
+Open **http://localhost:3001** in your browser.
 
 ---
 
-## 🔑 Demo Credentials
+## Environment variables
 
-| Role | Username / Email | Password |
-|---|---|---|
-| Student | `sara@college.edu` | `password123` |
-| Student | `ali@college.edu` | `pass456` |
-| Student | `fatima@college.edu` | `khan789` |
-| Admin | `admin` | `admin123` |
+Create a `server/.env` file based on `server/.env.example`. The required variables are:
 
----
+```
+PORT=3001
+JWT_SECRET=your_long_random_secret_here
+ADMIN_USERNAME=your_admin_username
+ADMIN_PASSWORD=your_admin_password
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+```
 
-## 💳 Stripe Payments
-
-**Mock mode** is active by default (no keys needed). For real payments:
-
-1. Sign up at [stripe.com](https://stripe.com) → **Developers → API Keys**
-2. Add your **Test** keys to `server/.env`
-3. Use test card: `4242 4242 4242 4242` · Any future date · Any CVV
+Get Stripe keys at [stripe.com](https://stripe.com) — use test mode keys for development. The app works without Stripe keys (payments will run in simulation mode).
 
 ---
 
-## 📁 Project Structure
+## Deployment
+
+The project includes a `railway.json` file for one-click deployment to [Railway](https://railway.app). Connect the GitHub repo, add the environment variables listed above, and Railway will handle the rest.
+
+---
+
+## Project structure
 
 ```
 college-website/
-├── index.html              # Landing page
-├── css/
-│   ├── style.css           # Design system & global styles
-│   ├── animations.css      # Keyframe animations
-│   ├── components.css      # Reusable UI components
-│   ├── dashboard.css       # Portal layout
-│   └── forms.css           # Form & auth styles
-├── js/
-│   ├── api.js              # API client with JWT auth
-│   ├── main.js             # Landing page logic
-│   ├── student.js          # Student portal controllers
-│   └── admin.js            # Admin portal controllers
-├── pages/
-│   ├── student-login.html
-│   ├── student-dashboard.html
-│   ├── profile.html
-│   ├── result.html
-│   ├── fee-status.html
-│   ├── fee-payment.html
-│   ├── timetable.html
-│   ├── admin-login.html
-│   ├── admin-dashboard.html
-│   ├── admin-announcements.html
-│   ├── admin-admissions.html
-│   └── admin-students.html
-└── server/
-    ├── server.js           # Express app entry
-    ├── .env.example        # Environment template
-    ├── db/
-    │   ├── database.js     # SQLite setup & helpers
-    │   └── seed.js         # Demo data seeder
-    ├── middleware/
-    │   └── auth.js         # JWT guards
-    └── routes/
-        ├── auth.routes.js
-        ├── student.routes.js
-        ├── payment.routes.js
-        ├── admin.routes.js
-        └── public.routes.js
+├── index.html              # Main landing page
+├── css/                    # Stylesheets
+├── js/                     # Frontend JavaScript
+├── pages/                  # Student and admin pages
+└── server/                 # Backend (Node.js)
+    ├── db/                 # Database setup and seeder
+    ├── middleware/         # JWT auth middleware
+    ├── routes/             # API route handlers
+    └── server.js           # Entry point
 ```
 
 ---
 
-## 📡 API Reference
+## Screenshots
 
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| GET | `/api/health` | None | Health check |
-| POST | `/api/auth/student-login` | None | Student JWT login |
-| POST | `/api/auth/admin-login` | None | Admin JWT login |
-| GET | `/api/student/profile` | Student | Profile data |
-| GET | `/api/student/results` | Student | Semester results |
-| GET | `/api/student/fee` | Student | Fee records |
-| GET | `/api/student/timetable` | Student | Weekly schedule |
-| POST | `/api/payment/create-intent` | Student | Stripe PaymentIntent |
-| GET | `/api/admin/stats` | Admin | Dashboard stats |
-| GET/POST/DELETE | `/api/admin/announcements` | Admin | Announcements CRUD |
-| GET/POST/PATCH | `/api/admin/admissions` | Admin | Admissions management |
-| GET | `/api/admin/students` | Admin | Student records |
+*Coming soon — will add once the live deployment is set up.*
 
 ---
 
-## 📄 License
+## License
 
-MIT – feel free to use, modify, and distribute.
-
----
-
-*Built with ❤️ by [Muhammad Usman](https://github.com/muhammadusman2228)*
+MIT

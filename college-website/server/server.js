@@ -150,9 +150,9 @@ async function start() {
         app.listen(PORT, '0.0.0.0', () => {
             console.log(`\n🎓 Greenfield College running on port ${PORT}`);
             console.log(`🔗 API health: /api/health`);
-            console.log(`👤 Student: sara@college.edu / password123`);
-            console.log(`🔐 Admin:   admin / admin123\n`);
+            console.log(`📋 See README.md for credentials and setup instructions.\n`);
         });
+
     } catch (err) {
         console.error('❌ Failed to start server:', err);
         process.exit(1);
