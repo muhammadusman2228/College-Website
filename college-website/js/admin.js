@@ -1,5 +1,5 @@
 /* =====================================================
-   admin.js – Admin Panel Page Controllers
+   js/admin.js – Admin Portal Page Controllers (API version)
    ===================================================== */
 
 'use strict';
@@ -7,361 +7,307 @@
 /* ─────────────────────────────────────────────────────
    ADMIN LOGIN
    ───────────────────────────────────────────────────── */
-function initAdminLogin() {
+async function initAdminLogin() {
     if (!document.getElementById('admin-login-form')) return;
-
-    if (Auth.isAdmin()) {
-        window.location.href = 'admin-dashboard.html';
-        return;
-    }
+    if (Auth.isAdmin()) { window.location.href = '/pages/admin-dashboard.html'; return; }
 
     const form = document.getElementById('admin-login-form');
-    const userInput = document.getElementById('admin-username');
-    const passInput = document.getElementById('admin-password');
+    const userEl = document.getElementById('admin-username');
+    const passEl = document.getElementById('admin-password');
     const errorEl = document.getElementById('admin-login-error');
     const submitBtn = form.querySelector('[type="submit"]');
     const pwdToggle = document.getElementById('admin-pwd-toggle');
 
     if (pwdToggle) {
         pwdToggle.addEventListener('click', () => {
-            const type = passInput.type === 'password' ? 'text' : 'password';
-            passInput.type = type;
-            pwdToggle.innerHTML = type === 'password'
-                ? '<i class="fa-regular fa-eye"></i>'
-                : '<i class="fa-regular fa-eye-slash"></i>';
+            const t = passEl.type === 'password' ? 'text' : 'password';
+            passEl.type = t;
+            pwdToggle.innerHTML = t === 'password' ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
         });
     }
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const username = userInput.value.trim();
-        const password = passInput.value;
-        if (!username || !password) {
-            showAdminError(errorEl, 'Please enter username and password.');
-            return;
-        }
+        const username = userEl.value.trim();
+        const password = passEl.value;
+        if (!username || !password) { showAdminError(errorEl, 'Enter username and password.'); return; }
+
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
-        setTimeout(() => {
-            const result = Auth.loginAdmin(username, password);
-            if (result.success) {
+
+        try {
+            const res = await adminLogin(username, password);
+            if (res.success) {
                 submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Access Granted';
-                setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 600);
-            } else {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Admin Login';
-                showAdminError(errorEl, result.msg);
+                setTimeout(() => { window.location.href = '/pages/admin-dashboard.html'; }, 600);
             }
-        }, 1000);
+        } catch (err) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Admin Login';
+            showAdminError(errorEl, err.message || 'Invalid credentials.');
+        }
     });
 }
 
 function showAdminError(el, msg) {
     if (!el) return;
     el.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${msg}`;
-    el.style.display = 'flex';
+    el.style.display = 'block';
 }
 
 /* ─────────────────────────────────────────────────────
    ADMIN DASHBOARD
    ───────────────────────────────────────────────────── */
-function initAdminDashboard() {
+async function initAdminDashboard() {
     if (!document.getElementById('admin-dash-content')) return;
     if (!Auth.initDashboard('admin')) return;
 
-    const announcements = CollegeData.getAnnouncements();
-    const admissions = CollegeData.getAdmissions();
+    try {
+        const res = await AdminAPI.getStats();
+        const d = res.data;
 
-    const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-    setEl('stat-total-students', CollegeData.students.length);
-    setEl('stat-announcements', announcements.length);
-    setEl('stat-admissions', admissions.length);
-    setEl('stat-pending-adm', admissions.filter(a => a.status === 'Pending').length);
+        const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+        setEl('stat-total-students', d.totalStudents);
+        setEl('stat-announcements', d.totalAnnouncements);
+        setEl('stat-admissions', d.totalAdmissions);
+        setEl('stat-pending-adm', d.pendingAdmissions);
 
-    // Recent announcements list
-    const recentList = document.getElementById('recent-ann-list');
-    if (recentList) {
-        recentList.innerHTML = announcements.slice(0, 3).map(ann => `
-      <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--glass-border)">
-        <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:rgba(233,69,96,0.1);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;font-size:0.9rem">
-          <i class="${ann.icon || 'fa-solid fa-bullhorn'}"></i>
+        const recentList = document.getElementById('recent-ann-list');
+        if (recentList && d.recentAnnouncements?.length) {
+            recentList.innerHTML = d.recentAnnouncements.map(ann => `
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--glass-border)">
+          <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:rgba(233,69,96,0.1);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0">
+            <i class="${ann.icon || 'fa-solid fa-bullhorn'}"></i>
+          </div>
+          <div style="flex:1;overflow:hidden">
+            <div style="font-size:0.85rem;font-weight:600;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ann.title}</div>
+            <div style="font-size:0.75rem;color:var(--text-muted)">${formatDate(ann.date)}</div>
+          </div>
+          <span class="badge badge-accent">${ann.category || 'General'}</span>
         </div>
-        <div style="flex:1;overflow:hidden">
-          <div style="font-size:0.85rem;font-weight:600;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ann.title}</div>
-          <div style="font-size:0.75rem;color:var(--text-muted)">${CollegeData.formatDate(ann.date)}</div>
-        </div>
-        <span class="badge badge-accent" style="flex-shrink:0">${ann.category || 'General'}</span>
-      </div>
-    `).join('') || '<p style="color:var(--text-muted);padding:20px 0;font-size:0.875rem">No announcements yet.</p>';
+      `).join('');
+        } else if (recentList) {
+            recentList.innerHTML = '<p style="color:var(--text-muted);font-size:0.875rem;padding:20px 0">No announcements yet.</p>';
+        }
+    } catch (err) {
+        console.error('Admin dash error:', err);
     }
 }
 
 /* ─────────────────────────────────────────────────────
-   ANNOUNCEMENTS MANAGEMENT
+   ANNOUNCEMENTS
    ───────────────────────────────────────────────────── */
-function initAnnouncementsPage() {
+async function initAnnouncementsPage() {
     if (!document.getElementById('ann-list-container')) return;
     if (!Auth.initDashboard('admin')) return;
 
-    function renderList() {
-        const list = CollegeData.getAnnouncements();
+    async function renderList() {
         const container = document.getElementById('ann-list-container');
         if (!container) return;
+        try {
+            const res = await AdminAPI.getAnnouncements();
+            const list = res.data;
 
-        if (!list.length) {
-            container.innerHTML = '<p style="color:var(--text-muted);padding:40px;text-align:center">No announcements yet. Add one above.</p>';
-            return;
+            if (!list.length) {
+                container.innerHTML = '<p style="color:var(--text-muted);padding:40px;text-align:center">No announcements yet.</p>';
+                return;
+            }
+
+            container.innerHTML = list.map((ann, i) => `
+        <div class="page-card" style="margin-bottom:16px;animation:fadeInUp 0.4s ease ${i * 0.05}s both">
+          <div class="page-card-header">
+            <div class="page-card-title" style="flex:1;min-width:0">
+              <i class="${ann.icon || 'fa-solid fa-bullhorn'}"></i>
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${ann.title}</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+              <span class="badge badge-accent">${ann.category}</span>
+              <span style="font-size:0.75rem;color:var(--text-muted)">${formatDate(ann.date)}</span>
+              <button class="btn btn-sm" style="background:rgba(231,76,60,0.15);color:var(--danger)" onclick="deleteAnn(${ann.id})">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div class="page-card-body" style="padding-top:16px">
+            <p style="font-size:0.875rem;color:var(--text-muted);line-height:1.7">${ann.excerpt}</p>
+          </div>
+        </div>
+      `).join('');
+        } catch (err) {
+            container.innerHTML = `<p style="color:var(--danger);text-align:center;padding:40px">${err.message}</p>`;
         }
-
-        container.innerHTML = list.map((ann, i) => `
-      <div class="page-card" style="margin-bottom:16px;animation:fadeInUp 0.4s ease ${i * 0.05}s both">
-        <div class="page-card-header">
-          <div class="page-card-title" style="flex:1;min-width:0">
-            <i class="${ann.icon || 'fa-solid fa-bullhorn'}"></i>
-            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${ann.title}</span>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
-            <span class="badge badge-accent">${ann.category || 'General'}</span>
-            <span style="font-size:0.75rem;color:var(--text-muted)">${CollegeData.formatDate(ann.date)}</span>
-            <button class="btn btn-sm btn-ghost" onclick="editAnnouncement('${ann.id}')">
-              <i class="fa-solid fa-edit"></i>
-            </button>
-            <button class="btn btn-sm" style="background:rgba(231,76,60,0.15);color:var(--danger)" onclick="deleteAnnouncement('${ann.id}')">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-        </div>
-        <div class="page-card-body" style="padding-top:16px">
-          <p style="font-size:0.875rem;color:var(--text-muted);line-height:1.7">${ann.excerpt}</p>
-        </div>
-      </div>
-    `).join('');
     }
 
-    // Add form
-    const addForm = document.getElementById('add-ann-form');
-    if (addForm) {
-        addForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const title = document.getElementById('ann-title').value.trim();
-            const category = document.getElementById('ann-category').value;
-            const excerpt = document.getElementById('ann-excerpt').value.trim();
-            const author = document.getElementById('ann-author').value.trim() || 'Admin';
+    document.getElementById('add-ann-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const body = {
+            title: document.getElementById('ann-title').value.trim(),
+            category: document.getElementById('ann-category').value,
+            author: document.getElementById('ann-author').value.trim() || 'Admin',
+            excerpt: document.getElementById('ann-excerpt').value.trim(),
+        };
+        if (!body.title || !body.excerpt) { alert('Fill in title and content.'); return; }
+        try {
+            await AdminAPI.addAnnouncement(body);
+            document.getElementById('add-ann-form').reset();
+            await renderList();
+            showToast('Published', 'Announcement published successfully.', 'success');
+        } catch (err) { showToast('Error', err.message, 'error'); }
+    });
 
-            if (!title || !excerpt) { alert('Please fill in title and content.'); return; }
-
-            const list = CollegeData.getAnnouncements();
-            const catIcons = { Exams: 'fa-solid fa-calendar-check', Events: 'fa-solid fa-trophy', Admissions: 'fa-solid fa-graduation-cap', General: 'fa-solid fa-bullhorn' };
-            list.unshift({
-                id: 'ann-' + Date.now(),
-                title, category, excerpt, author,
-                date: new Date().toISOString().split('T')[0],
-                icon: 'fa-solid ' + (catIcons[category] || 'fa-bullhorn'),
-            });
-            CollegeData.saveAnnouncements(list);
-            addForm.reset();
-            renderList();
-            showAdminToast('Announcement Added', 'Your announcement has been published.', 'success');
-        });
-    }
-
-    window.deleteAnnouncement = function (id) {
+    window.deleteAnn = async (id) => {
         if (!confirm('Delete this announcement?')) return;
-        const list = CollegeData.getAnnouncements().filter(a => a.id !== id);
-        CollegeData.saveAnnouncements(list);
-        renderList();
-        showAdminToast('Deleted', 'Announcement removed.', 'info');
-    };
-
-    window.editAnnouncement = function (id) {
-        const ann = CollegeData.getAnnouncements().find(a => a.id === id);
-        if (!ann) return;
-        document.getElementById('ann-title').value = ann.title;
-        document.getElementById('ann-category').value = ann.category || 'General';
-        document.getElementById('ann-excerpt').value = ann.excerpt;
-        document.getElementById('ann-author').value = ann.author || '';
-
-        // Delete old, submit will create new
-        CollegeData.saveAnnouncements(CollegeData.getAnnouncements().filter(a => a.id !== id));
-        document.getElementById('ann-title').focus();
-        renderList();
+        try {
+            await AdminAPI.deleteAnnouncement(id);
+            await renderList();
+            showToast('Deleted', 'Announcement removed.', 'info');
+        } catch (err) { showToast('Error', err.message, 'error'); }
     };
 
     renderList();
 }
 
 /* ─────────────────────────────────────────────────────
-   ADMISSIONS MANAGEMENT
+   ADMISSIONS
    ───────────────────────────────────────────────────── */
-function initAdmissionsPage() {
+async function initAdmissionsPage() {
     if (!document.getElementById('admissions-tbody')) return;
     if (!Auth.initDashboard('admin')) return;
 
-    function renderAdmissions(filter = 'All') {
-        let list = CollegeData.getAdmissions();
-        if (filter !== 'All') list = list.filter(a => a.status === filter);
+    let currentFilter = 'All';
 
+    async function renderAdmissions() {
         const tbody = document.getElementById('admissions-tbody');
         if (!tbody) return;
+        try {
+            const res = await AdminAPI.getAdmissions(currentFilter);
+            const list = res.data;
 
-        if (!list.length) {
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:40px">No admissions found.</td></tr>`;
-            return;
+            if (!list.length) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:40px">No applications found.</td></tr>`;
+                return;
+            }
+
+            const statusBadge = s => {
+                const map = { Approved: 'badge-success', Pending: 'badge-warning', Rejected: 'badge-danger' };
+                return `<span class="badge ${map[s] || 'badge-info'}">${s}</span>`;
+            };
+
+            tbody.innerHTML = list.map(adm => `
+        <tr>
+          <td style="font-weight:600;color:var(--accent)">${adm.id}</td>
+          <td style="font-weight:500">${adm.name}</td>
+          <td>${adm.program}</td>
+          <td>${formatDate(adm.applied_on)}</td>
+          <td>${statusBadge(adm.status)}</td>
+          <td>
+            <div style="display:flex;gap:6px">
+              ${adm.status === 'Pending' ? `
+                <button class="btn btn-sm" style="background:rgba(39,174,96,0.15);color:var(--success)" onclick="updateAdm('${adm.id}','Approved')">Approve</button>
+                <button class="btn btn-sm" style="background:rgba(231,76,60,0.15);color:var(--danger)"  onclick="updateAdm('${adm.id}','Rejected')">Reject</button>
+              ` : `<span style="font-size:0.8rem;color:var(--text-muted)">—</span>`}
+            </div>
+          </td>
+        </tr>
+      `).join('');
+        } catch (err) {
+            tbody.innerHTML = `<tr><td colspan="6" style="color:var(--danger);padding:40px;text-align:center">${err.message}</td></tr>`;
         }
-
-        const statusBadge = (s) => {
-            const map = { Approved: 'badge-success', Pending: 'badge-warning', Rejected: 'badge-danger' };
-            return `<span class="badge ${map[s] || 'badge-info'}">${s}</span>`;
-        };
-
-        tbody.innerHTML = list.map(adm => `
-      <tr>
-        <td style="font-weight:600;color:var(--accent)">${adm.id}</td>
-        <td style="font-weight:500">${adm.name}</td>
-        <td>${adm.program}</td>
-        <td>${CollegeData.formatDate(adm.date)}</td>
-        <td>${statusBadge(adm.status)}</td>
-        <td>
-          <div style="display:flex;gap:6px">
-            ${adm.status === 'Pending' ? `
-              <button class="btn btn-sm" style="background:rgba(39,174,96,0.15);color:var(--success)" onclick="updateAdmStatus('${adm.id}','Approved')">Approve</button>
-              <button class="btn btn-sm" style="background:rgba(231,76,60,0.15);color:var(--danger)"  onclick="updateAdmStatus('${adm.id}','Rejected')">Reject</button>
-            ` : `<span style="font-size:0.8rem;color:var(--text-muted)">—</span>`}
-          </div>
-        </td>
-      </tr>
-    `).join('');
     }
 
-    window.updateAdmStatus = function (id, status) {
-        const list = CollegeData.getAdmissions();
-        const idx = list.findIndex(a => a.id === id);
-        if (idx === -1) return;
-        list[idx].status = status;
-        CollegeData.saveAdmissions(list);
-        renderAdmissions(currentFilter);
-        showAdminToast('Updated', `Admission ${id} marked as ${status}.`, status === 'Approved' ? 'success' : 'info');
+    window.updateAdm = async (id, status) => {
+        try {
+            await AdminAPI.updateAdmission(id, { status });
+            await renderAdmissions();
+            showToast('Updated', `Application ${id} → ${status}`, status === 'Approved' ? 'success' : 'info');
+        } catch (err) { showToast('Error', err.message, 'error'); }
     };
 
-    let currentFilter = 'All';
     document.querySelectorAll('[data-filter]').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentFilter = btn.dataset.filter;
-            renderAdmissions(currentFilter);
+            renderAdmissions();
         });
     });
 
-    // Add new admission form
-    const addForm = document.getElementById('add-adm-form');
-    if (addForm) {
-        addForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('adm-name').value.trim();
-            const program = document.getElementById('adm-program').value;
-            const cnic = document.getElementById('adm-cnic').value.trim();
-            const email = document.getElementById('adm-email').value.trim();
-            if (!name || !program || !cnic || !email) { alert('Please fill all fields.'); return; }
-            const list = CollegeData.getAdmissions();
-            const newAdm = { id: 'ADM-' + String(list.length + 1).padStart(3, '0'), name, program, cnic, email, status: 'Pending', date: new Date().toISOString().split('T')[0] };
-            list.unshift(newAdm);
-            CollegeData.saveAdmissions(list);
-            addForm.reset();
-            const modal = document.getElementById('add-adm-modal');
-            if (modal) modal.classList.add('hidden');
-            renderAdmissions(currentFilter);
-            showAdminToast('Application Added', `${name} registered for ${program}.`, 'success');
-        });
-    }
-
-    // Modal
-    const openModalBtn = document.getElementById('open-add-adm');
-    const closeModalBtn = document.getElementById('close-adm-modal');
+    // Add modal
     const modal = document.getElementById('add-adm-modal');
-    if (openModalBtn && modal) openModalBtn.addEventListener('click', () => modal.classList.remove('hidden'));
-    if (closeModalBtn && modal) closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
-    if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
+    document.getElementById('open-add-adm')?.addEventListener('click', () => modal?.classList.remove('hidden'));
+    document.getElementById('close-adm-modal')?.addEventListener('click', () => modal?.classList.add('hidden'));
+    modal?.addEventListener('click', e => { if (e.target === modal) modal.classList.add('hidden'); });
+
+    document.getElementById('add-adm-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const body = {
+            name: document.getElementById('adm-name').value.trim(),
+            program: document.getElementById('adm-program').value,
+            cnic: document.getElementById('adm-cnic').value.trim(),
+            email: document.getElementById('adm-email').value.trim(),
+        };
+        if (!body.name || !body.program || !body.email) { alert('Fill all fields.'); return; }
+        try {
+            await AdminAPI.addAdmission(body);
+            e.target.reset();
+            modal?.classList.add('hidden');
+            await renderAdmissions();
+            showToast('Added', `${body.name} registered for ${body.program}.`, 'success');
+        } catch (err) { showToast('Error', err.message, 'error'); }
+    });
 
     renderAdmissions();
 }
 
 /* ─────────────────────────────────────────────────────
-   STUDENTS MANAGEMENT
+   STUDENTS
    ───────────────────────────────────────────────────── */
-function initStudentsPage() {
+async function initStudentsPage() {
     if (!document.getElementById('students-tbody')) return;
     if (!Auth.initDashboard('admin')) return;
 
-    function renderStudents(query = '') {
-        let list = CollegeData.students;
-        if (query) {
-            const q = query.toLowerCase();
-            list = list.filter(s =>
-                s.name.toLowerCase().includes(q) ||
-                s.rollNo.toLowerCase().includes(q) ||
-                s.program.toLowerCase().includes(q) ||
-                s.email.toLowerCase().includes(q)
-            );
-        }
-
+    async function renderStudents(search = '') {
         const tbody = document.getElementById('students-tbody');
         if (!tbody) return;
+        try {
+            const res = await AdminAPI.getStudents(search);
+            const list = res.data;
 
-        if (!list.length) {
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:40px">No students found.</td></tr>`;
-            return;
-        }
+            if (!list.length) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:40px">No students found.</td></tr>`;
+                return;
+            }
 
-        tbody.innerHTML = list.map(s => `
-      <tr>
-        <td>
-          <div style="display:flex;align-items:center;gap:10px">
-            <div style="width:36px;height:36px;border-radius:50%;background:var(--grad-accent);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--white);flex-shrink:0">${s.avatarInitials}</div>
-            <div>
-              <div style="font-weight:600;color:var(--white)">${s.name}</div>
-              <div style="font-size:0.75rem;color:var(--text-muted)">${s.email}</div>
+            tbody.innerHTML = list.map(s => `
+        <tr>
+          <td>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--grad-accent);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--white);flex-shrink:0">${s.avatar_initials}</div>
+              <div>
+                <div style="font-weight:600;color:var(--white)">${s.name}</div>
+                <div style="font-size:0.75rem;color:var(--text-muted)">${s.email}</div>
+              </div>
             </div>
-          </div>
-        </td>
-        <td style="font-weight:600;color:var(--accent)">${s.rollNo}</td>
-        <td>${s.program}</td>
-        <td>${s.semester}</td>
-        <td><span style="color:var(--accent);font-weight:700">${s.gpa.toFixed(2)}</span></td>
-        <td><span class="badge badge-success">${s.status}</span></td>
-      </tr>
-    `).join('');
+          </td>
+          <td style="font-weight:600;color:var(--accent)">${s.roll_no}</td>
+          <td>${s.program}</td>
+          <td>${s.semester}</td>
+          <td><span style="color:var(--accent);font-weight:700">${Number(s.gpa).toFixed(2)}</span></td>
+          <td><span class="badge badge-success">${s.status}</span></td>
+        </tr>
+      `).join('');
+        } catch (err) {
+            tbody.innerHTML = `<tr><td colspan="6" style="color:var(--danger);padding:40px;text-align:center">${err.message}</td></tr>`;
+        }
     }
 
-    const searchInput = document.getElementById('student-search');
-    if (searchInput) {
-        searchInput.addEventListener('input', () => renderStudents(searchInput.value));
-    }
+    let searchTimer;
+    document.getElementById('student-search')?.addEventListener('input', (e) => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => renderStudents(e.target.value), 400);
+    });
 
     renderStudents();
-}
-
-/* ─────────────────────────────────────────────────────
-   Toast helper for admin pages
-   ───────────────────────────────────────────────────── */
-function showAdminToast(title, msg, type = 'info') {
-    const container = document.getElementById('admin-toast-container');
-    if (!container) return;
-    const iconMap = { success: 'fa-check', error: 'fa-times', info: 'fa-info' };
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.innerHTML = `
-    <div class="toast-icon"><i class="fa-solid ${iconMap[type] || 'fa-info'}"></i></div>
-    <div class="toast-content">
-      <div class="toast-title">${title}</div>
-      <div class="toast-msg">${msg}</div>
-    </div>
-  `;
-    container.appendChild(toast);
-    setTimeout(() => {
-        toast.classList.add('removing');
-        toast.addEventListener('animationend', () => toast.remove());
-    }, 4000);
 }
 
 /* ── Auto-init ─────────────────────────────────────── */
