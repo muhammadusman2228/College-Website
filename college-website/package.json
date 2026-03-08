@@ -1,0 +1,14 @@
+{
+    "name": "greenfield-college-website",
+    "version": "1.0.0",
+    "description": "Greenfield College Full Stack Website",
+    "scripts": {
+        "start": "cd server && node server.js",
+        "dev": "cd server && npm run dev",
+        "install-server": "cd server && npm install",
+        "postinstall": "cd server && npm install"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
