@@ -438,7 +438,17 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
 
 /* ─── PRINT ────────────────────────────────────────── */
 @media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
   body * { visibility: hidden; }
   #resume-preview, #resume-preview * { visibility: visible; }
-  #resume-preview { position: fixed; top: 0; left: 0; width: 100%; box-shadow: none; }
+  #resume-preview {
+    position: fixed; top: 0; left: 0;
+    width: 100%; box-shadow: none;
+    margin: 0; padding: 0;
+  }
+  @page { margin: 0; size: A4 portrait; }
 }

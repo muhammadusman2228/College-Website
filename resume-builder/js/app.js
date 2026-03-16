@@ -272,8 +272,38 @@ function renderPreview() {
 
 // ── PDF Download ───────────────────────────────────────────────
 function downloadPDF() {
-  renderPreview();
-  setTimeout(() => window.print(), 200);
+  const resumeHTML = ResumeTemplates[currentTemplate](resumeData);
+  const printWindow = window.open('', '_blank', 'width=900,height=1200');
+  printWindow.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Resume — ${resumeData.personal.name || 'Download'}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+    body { font-family: 'Inter', sans-serif; background: #fff; }
+    @page { margin: 0; size: A4 portrait; }
+    @media print {
+      html, body { width: 210mm; height: 297mm; }
+    }
+  </style>
+</head>
+<body>
+  ${resumeHTML}
+  <script>
+    window.onload = function() {
+      setTimeout(function() { window.print(); window.close(); }, 500);
+    };
+  <\/script>
+</body>
+</html>`);
+  printWindow.document.close();
 }
 
 // ── Autosave to localStorage ───────────────────────────────────

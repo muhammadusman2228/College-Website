@@ -19,11 +19,11 @@ const ResumeTemplates = {
           
           <div style="margin-bottom:24px;">
             <h3 style="font-size:0.7rem;text-transform:uppercase;letter-spacing:2px;opacity:0.6;margin-bottom:12px;">Contact</h3>
-            ${personal.email ? `<p style="font-size:0.82rem;opacity:0.9;margin-bottom:6px;">📧 ${personal.email}</p>` : ''}
-            ${personal.phone ? `<p style="font-size:0.82rem;opacity:0.9;margin-bottom:6px;">📱 ${personal.phone}</p>` : ''}
+            ${personal.email ? `<p style="font-size:0.82rem;opacity:0.9;margin-bottom:6px;">📧 <a href="mailto:${personal.email}" style="color:inherit;text-decoration:underline;">${personal.email}</a></p>` : ''}
+            ${personal.phone ? `<p style="font-size:0.82rem;opacity:0.9;margin-bottom:6px;">📱 <a href="tel:${personal.phone}" style="color:inherit;text-decoration:underline;">${personal.phone}</a></p>` : ''}
             ${personal.location ? `<p style="font-size:0.82rem;opacity:0.9;margin-bottom:6px;">📍 ${personal.location}</p>` : ''}
-            ${personal.linkedin ? `<p style="font-size:0.82rem;opacity:0.9;margin-bottom:6px;">🔗 ${personal.linkedin}</p>` : ''}
-            ${personal.github ? `<p style="font-size:0.82rem;opacity:0.9;">💻 ${personal.github}</p>` : ''}
+            ${personal.linkedin ? `<p style="font-size:0.82rem;opacity:0.9;margin-bottom:6px;">🔗 <a href="${personal.linkedin.startsWith('http') ? personal.linkedin : 'https://'+personal.linkedin}" target="_blank" style="color:inherit;text-decoration:underline;">${personal.linkedin}</a></p>` : ''}
+            ${personal.github ? `<p style="font-size:0.82rem;opacity:0.9;">💻 <a href="${personal.github.startsWith('http') ? personal.github : 'https://'+personal.github}" target="_blank" style="color:inherit;text-decoration:underline;">${personal.github}</a></p>` : ''}
           </div>
 
           ${skills.length ? `
@@ -84,11 +84,11 @@ const ResumeTemplates = {
           <h1 style="font-size:2.2rem;font-weight:800;letter-spacing:-0.5px;">${personal.name || 'Your Name'}</h1>
           <p style="color:#6b7280;font-size:1rem;margin-top:4px;">${personal.title || 'Professional Title'}</p>
           <div style="display:flex;gap:20px;margin-top:12px;flex-wrap:wrap;">
-            ${personal.email ? `<span style="font-size:0.82rem;color:#374151;">✉ ${personal.email}</span>` : ''}
-            ${personal.phone ? `<span style="font-size:0.82rem;color:#374151;">✆ ${personal.phone}</span>` : ''}
+            ${personal.email ? `<a href="mailto:${personal.email}" style="font-size:0.82rem;color:#374151;text-decoration:underline;">✉ ${personal.email}</a>` : ''}
+            ${personal.phone ? `<a href="tel:${personal.phone}" style="font-size:0.82rem;color:#374151;text-decoration:underline;">✆ ${personal.phone}</a>` : ''}
             ${personal.location ? `<span style="font-size:0.82rem;color:#374151;">⌖ ${personal.location}</span>` : ''}
-            ${personal.linkedin ? `<span style="font-size:0.82rem;color:#374151;">in ${personal.linkedin}</span>` : ''}
-            ${personal.github ? `<span style="font-size:0.82rem;color:#374151;">⌘ ${personal.github}</span>` : ''}
+            ${personal.linkedin ? `<a href="${personal.linkedin.startsWith('http') ? personal.linkedin : 'https://'+personal.linkedin}" target="_blank" style="font-size:0.82rem;color:#374151;text-decoration:underline;">in ${personal.linkedin}</a>` : ''}
+            ${personal.github ? `<a href="${personal.github.startsWith('http') ? personal.github : 'https://'+personal.github}" target="_blank" style="font-size:0.82rem;color:#374151;text-decoration:underline;">⌘ ${personal.github}</a>` : ''}
           </div>
         </div>
 
@@ -145,11 +145,11 @@ const ResumeTemplates = {
           <h1 style="font-size:2.2rem;font-weight:800;letter-spacing:-0.5px;">${personal.name || 'Your Name'}</h1>
           <p style="color:#06b6d4;font-size:1rem;margin:6px 0 16px;font-weight:500;">${personal.title || 'Professional Title'}</p>
           <div style="display:flex;gap:20px;flex-wrap:wrap;">
-            ${personal.email ? `<span style="font-size:0.82rem;color:#94a3b8;">✉ ${personal.email}</span>` : ''}
-            ${personal.phone ? `<span style="font-size:0.82rem;color:#94a3b8;">✆ ${personal.phone}</span>` : ''}
+            ${personal.email ? `<a href="mailto:${personal.email}" style="font-size:0.82rem;color:#94a3b8;text-decoration:underline;">✉ ${personal.email}</a>` : ''}
+            ${personal.phone ? `<a href="tel:${personal.phone}" style="font-size:0.82rem;color:#94a3b8;text-decoration:underline;">✆ ${personal.phone}</a>` : ''}
             ${personal.location ? `<span style="font-size:0.82rem;color:#94a3b8;">📍 ${personal.location}</span>` : ''}
-            ${personal.linkedin ? `<span style="font-size:0.82rem;color:#94a3b8;">in ${personal.linkedin}</span>` : ''}
-            ${personal.github ? `<span style="font-size:0.82rem;color:#94a3b8;">⌘ ${personal.github}</span>` : ''}
+            ${personal.linkedin ? `<a href="${personal.linkedin.startsWith('http') ? personal.linkedin : 'https://'+personal.linkedin}" target="_blank" style="font-size:0.82rem;color:#94a3b8;text-decoration:underline;">in ${personal.linkedin}</a>` : ''}
+            ${personal.github ? `<a href="${personal.github.startsWith('http') ? personal.github : 'https://'+personal.github}" target="_blank" style="font-size:0.82rem;color:#94a3b8;text-decoration:underline;">⌘ ${personal.github}</a>` : ''}
           </div>
         </div>
         
