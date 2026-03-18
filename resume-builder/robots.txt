@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://resumecreationusman.vercel.app/sitemap.xml
